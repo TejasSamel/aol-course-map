@@ -2,6 +2,12 @@ name: Update AOL Course Map
 
 on:
   workflow_dispatch:
+  schedule:
+    # Daily at 6:00 AM India time = 00:30 UTC
+    - cron: "30 0 * * *"
+
+permissions:
+  contents: write
 
 jobs:
   update-map:
@@ -10,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -37,11 +45,10 @@ jobs:
           cp courses_for_map_final.json website/courses_for_map_final.json
           cp ashrams.json website/ashrams.json
 
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli
-
-      - name: Deploy to Netlify
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: netlify deploy --prod --dir website --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN"
+      - name: Commit updated website data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add website/index.html website/courses_for_map_final.json website/ashrams.json
+          git commit -m "Auto update map data" || echo "No changes to commit"
+          git push

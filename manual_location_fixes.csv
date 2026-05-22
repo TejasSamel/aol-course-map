@@ -1,48 +1,72 @@
-﻿course_id,manual_latitude,manual_longitude,notes
-Q66274,10.0580928,76.2855634,Imported from bad_coordinates_review.csv
-K81496,22.805189,70.8274304,Imported from bad_coordinates_review.csv
-0KE18299,17.405,78.4052,Imported from bad_coordinates_review.csv
-TM113240,19.1382514,77.3209555,Imported from bad_coordinates_review.csv
-,,,
-0AE13120,30.86827392,75.75695295,"City mismatch: row city is Ludhiana, but coordinate is 104.7 km from ludhiana"
-TM106858,18.511987,73.73641657,"City mismatch: row city is Pune, but coordinate is 640.8 km from pune"
-E08450,25.1391653,85.83921509999999,"City mismatch: row city is patna, but coordinate is 86.8 km from patna"
-Y17485,19.91158365,83.18796031,"City mismatch: row city is Bhawanipatna, but coordinate is 663.5 km from patna"
-0FN21804,28.6438234,77.3726379,"City mismatch: row city is Makanpur, but coordinate is 380.3 km from kanpur"
-TM110651,18.8688934,72.9312921,"City mismatch: row city is Uran, but coordinate is 276.7 km from aurangabad"
-P128518,12.9035322,76.3897978,"City mismatch: row city is chennarayapatna, but coordinate is 1682.2 km from patna"
-P128521,12.9035322,76.3897978,"City mismatch: row city is chennarayapatna, but coordinate is 1682.2 km from patna"
-P128522,12.9035322,76.3897978,"City mismatch: row city is chennarayapatna, but coordinate is 1682.2 km from patna"
-P128115,12.852152,74.842653,"City mismatch: row city is Mangalore, but coordinate is 309.9 km from mangalore"
-K81103,22.2726956,70.74063579999999,"City mismatch: row city is Ra, but coordinate is 933.5 km from gurugram"
-L27308,30.583187,77.0190228,"City mismatch: row city is Raipur rani, but coordinate is 1135.1 km from raipur"
-0BG13884,29.0869761,73.93598209999999,"City mismatch: row city is Suratgarh, but coordinate is 887.3 km from surat"
-E08240,25.61197439,85.12014127,"City mismatch: row city is Patna, but coordinate is 70.2 km from patna"
-P125117,12.9536392,77.695126,"City mismatch: row city is B, but coordinate is 853.4 km from mumbai"
-P112479,12.82358345,77.51088933,"City mismatch: row city is Bengaluru, but coordinate is 258.2 km from bengaluru"
-P128945,12.89817999,77.53883853,"City mismatch: row city is Bengaluru, but coordinate is 218.2 km from bengaluru"
-TM95792,18.5011162,73.75076690000003,"City mismatch: row city is Bhu, but coordinate is 1281.6 km from bhubaneswar"
-0FN19264,28.57726928,77.44278992,"City mismatch: row city is Noida, but coordinate is 252.3 km from noida"
-B24678,17.7343219,83.3129841,"City mismatch: row city is Visakhapatnam (Urban), but coordinate is 894.0 km from patna"
-TM112340,20.7116217,76.56612760000007,"City mismatch: row city is Kha, but coordinate is 775.2 km from visakhapatnam"
-TM112341,20.7116217,76.56612760000007,"City mismatch: row city is Kha, but coordinate is 775.2 km from visakhapatnam"
-E08209,25.55166,84.6605318,"City mismatch: row city is Ara, but coordinate is 1220.7 km from vadodara"
-TM108044,16.99203035,73.30568973,"City mismatch: row city is Rat, but coordinate is 471.3 km from surat"
-B24650,17.7294167,83.3092679,"City mismatch: row city is Visakhapatnam (Urban), but coordinate is 894.6 km from patna"
-B24676,17.7343219,83.3129841,"City mismatch: row city is Visakhapatnam (Urban), but coordinate is 894.0 km from patna"
-Y17450,19.9074279,83.1641562,"City mismatch: row city is Bhawanipatna, but coordinate is 663.9 km from patna"
-B24690,17.7272349,83.3021004,"City mismatch: row city is Visakhapatnam (Urban), but coordinate is 895.0 km from patna"
-B24702,17.7272349,83.3021004,"City mismatch: row city is Visakhapatnam (Urban), but coordinate is 895.0 km from patna"
-0FN21777,25.46835879,81.85379128,"City mismatch: row city is A, but coordinate is 1164.1 km from mumbai"
-P127965,13.0461106,77.52091680000001,"City mismatch: row city is B, but coordinate is 833.9 km from mumbai"
-0DS20773,8.713782900000002,77.3665018,"City mismatch: row city is A, but coordinate is 1249.7 km from mumbai"
-P116249,12.85999126,77.61179924,"City mismatch: row city is Bangalore, but coordinate is 341.3 km from bangalore"
-TM112266,19.2287419,73.1505004,"City mismatch: row city is Pune, but coordinate is 108.3 km from pune"
-0AE13138,30.6121835,76.7221082,"City mismatch: row city is Raipur Kalan, but coordinate is 1150.3 km from raipur"
-K78794,23.012144,72.460045,"City mismatch: row city is Surat, but coordinate is 208.4 km from surat"
-K78798,23.012144,72.460045,"City mismatch: row city is Surat, but coordinate is 208.4 km from surat"
-TM96967,20.0047118,73.7654367,"City mismatch: row city is N, but coordinate is 120.2 km from thane"
-TM96968,20.0047118,73.7654367,"City mismatch: row city is N, but coordinate is 120.2 km from thane"
-0DS20432,10.9990845,76.944141,"City mismatch: row city is c, but coordinate is 429.6 km from chennai"
-K81123,23.012144,72.460045,"City mismatch: row city is Surat City, but coordinate is 208.4 km from surat"
-TM112840,19.22175236,73.09232504,
+﻿course_id,manual_latitude,manual_longitude
+Q66274,10.0580928,76.2855634
+K81496,22.805189,70.8274304
+0KE18299,17.405,78.4052
+TM113240,19.1382514,77.3209555
+,,
+0AE13120,30.86827392,75.75695295
+TM106858,18.511987,73.73641657
+E08450,25.1391653,85.83921509999999
+Y17485,19.91158365,83.18796031
+0FN21804,28.6438234,77.3726379
+TM110651,18.8688934,72.9312921
+P128518,12.9035322,76.3897978
+P128521,12.9035322,76.3897978
+P128522,12.9035322,76.3897978
+P128115,12.852152,74.842653
+K81103,22.2726956,70.74063579999999
+L27308,30.583187,77.0190228
+0BG13884,29.0869761,73.93598209999999
+E08240,25.61197439,85.12014127
+P125117,12.9536392,77.695126
+P112479,12.82358345,77.51088933
+P128945,12.89817999,77.53883853
+TM95792,18.5011162,73.75076690000003
+0FN19264,28.57726928,77.44278992
+B24678,17.7343219,83.3129841
+TM112340,20.7116217,76.56612760000007
+TM112341,20.7116217,76.56612760000007
+E08209,25.55166,84.6605318
+TM108044,16.99203035,73.30568973
+B24650,17.7294167,83.3092679
+B24676,17.7343219,83.3129841
+Y17450,19.9074279,83.1641562
+B24690,17.7272349,83.3021004
+B24702,17.7272349,83.3021004
+0FN21777,25.46835879,81.85379128
+P127965,13.0461106,77.52091680000001
+0DS20773,8.713782900000002,77.3665018
+P116249,12.85999126,77.61179924
+TM112266,19.2287419,73.1505004
+0AE13138,30.6121835,76.7221082
+K78794,23.012144,72.460045
+K78798,23.012144,72.460045
+TM96967,20.0047118,73.7654367
+TM96968,20.0047118,73.7654367
+0DS20432,10.9990845,76.944141
+K81123,23.012144,72.460045
+TM112840,19.22175236,73.09232504
+0FN19311,28.5355161,77.39102649999995
+0I8468,13.349271,74.7863698
+K80700,21.90230297,70.03520522
+0HL18394,21.7786031,87.75654299
+0BG14414,28.00952375,73.35330103
+TM90773,19.09695064,74.73638665
+S30036,23.83509374,80.39187075
+S30350,23.20834045,77.10211728
+F19392,18.84766334,80.65728904
+0DS20981,13.18999825,79.61352552
+0DS20985,9.933837327,78.13989364
+0FN21614,28.35692531,79.42040797
+P126242,12.88617338,77.68261571
+P126243,12.88617338,77.68261571
+B24884,16.71003548,81.09353479
+B25005,16.71003548,81.09353479
+0BG13626,26.29791495,73.04485378
+TM112354,20.47780426,76.22188101
+P128359,14.9656511,74.71371233
+B24902,15.72879978,79.26875687
+K79130,20.4413268,72.88229336
+TM112266,18.49545519,73.82977271
+S30201,23.33588354,75.02346274
+L24159,29.82316059,76.99224411
