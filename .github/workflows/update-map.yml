@@ -48,6 +48,46 @@ jobs:
           cp courses_for_map_final.json website/courses_for_map_final.json
           cp ashrams.json website/ashrams.json
 
+	      - name: Get course count
+        id: course_count
+        shell: bash
+        run: |
+          COUNT=$(python - <<'PY'
+import json
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+with open("website/courses_for_map_final.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+now = datetime.now(ZoneInfo("Asia/Kolkata")).strftime("%d %b %Y, %I:%M %p IST")
+
+print(f"count={len(data)}")
+print(f"updated_at={now}")
+PY
+          )
+          echo "$COUNT" >> "$GITHUB_OUTPUT"
+
+      - name: Send update email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: AOL Course Map Updated - ${{ steps.course_count.outputs.count }} courses
+          to: ${{ secrets.MAIL_TO }}
+          from: AOL Course Map Bot <${{ secrets.MAIL_USERNAME }}>
+          body: |
+            Course map updated successfully.
+
+            Current courses: ${{ steps.course_count.outputs.count }}
+            Updated at: ${{ steps.course_count.outputs.updated_at }}
+
+            Website:
+            https://aol-course-map.pages.dev
+
       - name: Commit updated website data
         run: |
           git config user.name "github-actions"
