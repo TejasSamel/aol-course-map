@@ -1,0 +1,170 @@
+[
+  {
+    "name": "Bangalore Ashram",
+    "city": "Bengaluru",
+    "latitude": 12.828870532644997,
+    "longitude": 77.5123295797207,
+    "programs_url": "https://programs.vvmvp.org/ashrams/bangalore/"
+  },
+  {
+    "name": "Pune Ashram",
+    "city": "Pune",
+    "latitude": 18.684043795613007,
+    "longitude": 73.99658671027925,
+    "programs_url": "https://programs.vvmvp.org/ashrams/triveni"
+  },
+  {
+    "name": "AOL Rishikesh",
+    "city": "Rishikesh",
+    "latitude": 30.11158959989916,
+    "longitude": 78.30854174454424,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0110"
+  },
+  {
+    "name": "Ved Niketan",
+    "city": "Rishikesh",
+    "latitude": 30.115830882754647,
+    "longitude": 78.3120921154618,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0115"
+  },
+  {
+    "name": "Nagpur Ashram",
+    "city": "Nagpur",
+    "latitude": 21.22918445067205,
+    "longitude": 78.97356672564611,
+    "programs_url": "https://programs.vvmvp.org/ashrams/nagpur/"
+  },
+  {
+    "name": "Vasad Ashram",
+    "city": "Vadodara",
+    "latitude": 22.490658366195095,
+    "longitude": 73.08575542842199,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0102"
+  },
+  {
+    "name": "Kailash Ashram",
+    "city": "Dharamshala",
+    "latitude": 32.49449495970335,
+    "longitude": 76.4723551334289,
+    "programs_url": "https://linktr.ee/KailashAshram"
+  },
+  {
+    "name": "Manasa Ganga Ashram",
+    "city": "Hyderabad",
+    "latitude": 17.405071214568746,
+    "longitude": 78.28190406978575,
+    "programs_url": "https://programs.vvmvp.org/ashrams/manasganga/"
+  },
+  {
+    "name": "Omkareshwar Ashram",
+    "city": "Omkareshwar",
+    "latitude": 22.22836206482191,
+    "longitude": 76.07147182437527,
+    "programs_url": "https://programs.vvmvp.org/ashrams/omkareshwar/"
+  },
+  {
+    "name": "Bodhgaya Ashram",
+    "city": "Bodhgaya",
+    "latitude": 24.645621072068685,
+    "longitude": 84.95654432897382,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0118"
+  },
+  {
+    "name": "Tehri Ashram",
+    "city": "Tehri",
+    "latitude": 30.297424551540843,
+    "longitude": 78.47373089976178,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0124"
+  },
+  {
+    "name": "Mysuru Ashram",
+    "city": "Mysore",
+    "latitude": 12.28891048339321,
+    "longitude": 76.69985562433097,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0119"
+  },
+  {
+    "name": "Jaipur Ashram",
+    "city": "Jaipur",
+    "latitude": 26.807335308359715,
+    "longitude": 75.85543473406989,
+    "programs_url": "https://programs.vvmvp.org/ashrams/jaipur/"
+  },
+  {
+    "name": "Kosi Ashram",
+    "city": "Kosi",
+    "latitude": 27.82324808423397,
+    "longitude": 77.42294889895963,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0114"
+  },
+  {
+    "name": "Trivandrum",
+    "city": "Trivandrum",
+    "latitude": 8.527754194969038,
+    "longitude": 76.98177575337269,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0106"
+  },
+  {
+    "name": "Kalady Ashram",
+    "city": "Kalady",
+    "latitude": 10.182505590401117,
+    "longitude": 76.49708189380299,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0112"
+  },
+  {
+    "name": "Moodadi Ashram",
+    "city": "Moodadi",
+    "latitude": 11.464037321360884,
+    "longitude": 75.6601613080356,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0120"
+  },
+  {
+    "name": "Kollam Ashram",
+    "city": "Kollam",
+    "latitude": 8.8950830972737,
+    "longitude": 76.57311352262741,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0127"
+  },
+  {
+    "name": "Guwahati Ashram",
+    "city": "Guwahati",
+    "latitude": 26.172721345402508,
+    "longitude": 91.69141915293862,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0104"
+  },
+  {
+    "name": "Diphu Ashram",
+    "city": "Diphu",
+    "latitude": 25.825820350863427,
+    "longitude": 93.39943828940477,
+    "programs_url": "https://programs.vvmvp.org/ashrams/diphu"
+  },
+  {
+    "name": "Bengal Ashram",
+    "city": "Andal",
+    "latitude": 23.738099550968947,
+    "longitude": 87.5874386967757,
+    "programs_url": "https://www.facebook.com/srisribengalashram.kajora"
+  },
+  {
+    "name": "Siliguri Ashram",
+    "city": "Siliguri",
+    "latitude": 26.73348909085381,
+    "longitude": 88.27523213342174,
+    "programs_url": "http://www.siliguriashram.org/"
+  },
+  {
+    "name": "Itanagar Ashram",
+    "city": "Itanagar",
+    "latitude": 27.084079271784436,
+    "longitude": 93.66600003927626,
+    "programs_url": "https://artoflivingarunachal.in/Our-Ashram.aspx"
+  },
+  {
+    "name": "Sri Sri University",
+    "city": "Cuttack",
+    "latitude": 20.452577351584555,
+    "longitude": 85.80032334534707,
+    "programs_url": "https://register.vvmvp.org/ekam/index.php/public/campus/index/0126"
+  }
+]
