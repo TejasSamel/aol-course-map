@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.pyc
+
+# Netlify local config
+.netlify/
+
+# Generated course data / raw data
+all_india_happiness_programs_*.csv
+all_india_happiness_programs_*.json
+all_india_happiness_programs_raw.csv
+all_india_happiness_programs_offline.csv
+all_india_happiness_programs_offline.json
+
+courses_for_map.csv
+courses_for_map.json
+courses_for_map_final.csv
+courses_for_map_geocoded_opencage.csv
+courses_for_map_geocoded_opencage.json
+courses_for_map_summary.txt
+
+# Review/output files
+pincode_mismatch_review.csv
+suspicious_locations_review.csv
+bad_coordinates_review.csv
+locations_needing_review_opencage.csv
+
+# Geocoding/cache/downloaded files
+IN.zip
+opencage_geocoding_cache.json
+pincode_with_lat-long.csv
+
+# Local batch files
+daily_update_map.bat
+update_map_data.bat
+
+# Public deploy folder generated locally
+website/
+
+# Extra local folders / duplicates
+data/
+scripts/
+
+# Generated final public data; GitHub Action will recreate this
+courses_for_map_final.json
+
+# Extra utility scripts not needed for daily production
+find_bad_coordinates.py
+find_suspicious_locations.py
+geocode_courses_opencage.py
+import_bad_coordinates_to_manual.py
+make_india_pincodes.py

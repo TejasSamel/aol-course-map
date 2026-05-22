@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Art of Living Happiness Programs Map</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --blue: #1d7ed0;
+      --green: #28a852;
+      --whatsapp: #25D366;
+      --text: #1f2937;
+      --shadow: 0 8px 28px rgba(15, 23, 42, 0.18);
+      --soft-shadow: 0 4px 18px rgba(15, 23, 42, 0.14);
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    #map {
+      width: 100vw;
+      height: 100vh;
+    }
+	
+	.leaflet-popup-content {
+	  max-height: 360px;
+	  overflow-y: auto;
+	}
+
+    .top-panel {
+	  position: fixed;
+	  left: 14px;
+	  right: 14px;
+	  bottom: 18px;
+	  z-index: 1000;
+	  display: grid;
+	  grid-template-columns: minmax(260px, 520px) auto auto;
+	  gap: 10px;
+	  align-items: end;
+	  pointer-events: none;
+	  background: transparent;
+	  padding: 0;
+	  box-shadow: none;
+	  border-radius: 0;
+	}
+	
+	.leaflet-tooltip.ashram-name-tooltip {
+	  background: white;
+	  color: #6d28d9;
+	  border: 1px solid rgba(109, 40, 217, 0.15);
+	  border-radius: 999px;
+	  padding: 3px 7px;
+	  font-size: 10.5px;
+	  font-weight: 900;
+	  line-height: 1;
+	  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
+	  white-space: nowrap;
+	  pointer-events: auto;
+	  cursor: pointer;
+	}
+
+	.leaflet-tooltip.ashram-name-tooltip::before {
+	  display: none;
+	}
+
+	.search-card {
+	  background: white;
+	  border-radius: 18px;
+	  box-shadow: var(--shadow);
+	  overflow: hidden;
+	  pointer-events: auto;
+	  border: 1px solid rgba(255,255,255,0.7);
+	}
+
+	.search-row {
+	  display: flex;
+	  align-items: center;
+	  gap: 8px;
+	  padding: 13px 14px;
+	}
+
+    .search-icon {
+      color: #667085;
+      font-size: 17px;
+      flex: 0 0 auto;
+    }
+
+    #searchInput {
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      color: var(--text);
+      padding: 6px 2px;
+      background: transparent;
+    }
+
+    #searchInput::placeholder {
+      color: #98a2b3;
+      font-weight: 400;
+    }
+
+    .clear-search {
+      border: none;
+      background: #eef2f7;
+      color: #475467;
+      border-radius: 999px;
+      width: 26px;
+      height: 26px;
+      cursor: pointer;
+      font-weight: 800;
+      display: none;
+      flex: 0 0 auto;
+    }
+
+    .clear-search.show {
+      display: block;
+    }
+
+    .count-pill {
+	  display: inline-flex;
+	  align-items: center;
+	  height: 42px;
+	  padding: 0 14px;
+	  background: rgba(255,255,255,0.96);
+	  border-radius: 999px;
+	  box-shadow: var(--soft-shadow);
+	  color: #15466f;
+	  font-size: 14px;
+	  font-weight: 700;
+	  pointer-events: auto;
+	  white-space: nowrap;
+	  border: 1px solid rgba(255,255,255,0.75);
+	}
+	.map-actions {
+	  pointer-events: auto;
+	  display: flex;
+	  align-items: center;
+	  gap: 10px;
+	  justify-self: start;
+	}
+
+	.map-action {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  gap: 4px;
+	}
+
+	.map-action-btn {
+	  width: 46px;
+	  height: 46px;
+	  padding: 0;
+	  border: none;
+	  border-radius: 50%;
+	  background: white;
+	  color: #15466f;
+	  box-shadow: var(--soft-shadow);
+	  cursor: pointer;
+	  display: grid;
+	  place-items: center;
+	  font-weight: 800;
+	  border: 1px solid rgba(255,255,255,0.75);
+	}
+
+	.map-action-label {
+	  background: rgba(255,255,255,0.96);
+	  color: #15466f;
+	  font-size: 11px;
+	  font-weight: 800;
+	  padding: 3px 7px;
+	  border-radius: 999px;
+	  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+	}
+
+    .near-me-blue-dot,
+    .user-location-dot {
+      width: 18px;
+      height: 18px;
+      background: #1a73e8;
+      border: 3px solid white;
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 2px rgba(26, 115, 232, 0.25),
+        0 0 0 8px rgba(26, 115, 232, 0.14);
+    }
+
+
+    .ashram-marker {
+	  width: 36px;
+	  height: 36px;
+	  border-radius: 50%;
+	  background: linear-gradient(135deg, #7c3aed, #f59e0b);
+	  border: 3px solid white;
+	  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.28);
+	  display: grid;
+	  place-items: center;
+	}
+
+	.ashram-marker::after {
+	  content: "★";
+	  color: white;
+	  font-size: 18px;
+	  font-weight: 900;
+	  line-height: 1;
+	  text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+	}
+
+    .ashram-popup {
+      padding: 14px 16px;
+      max-width: 310px;
+    }
+
+    .ashram-popup .ashram-badge {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #fff7ed;
+      color: #9a3412;
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .ashram-popup h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.18;
+      color: #6d28d9;
+      padding-right: 0;
+    }
+
+    .ashram-popup .row {
+      font-size: 13.4px;
+      line-height: 1.28;
+      color: #344054;
+      margin-bottom: 9px;
+    }
+
+    .ashram-popup a.ashram-btn {
+      display: block;
+      text-align: center;
+      padding: 9px 10px;
+      border-radius: 11px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 900;
+      color: white;
+      background: linear-gradient(135deg, #7c3aed, #f59e0b);
+      box-shadow: 0 2px 7px rgba(0,0,0,0.10);
+    }
+
+    .leaflet-tooltip.date-label-tooltip {
+      background: #ffffff;
+      color: #15466f;
+      border: 1px solid rgba(21, 70, 111, 0.15);
+      border-radius: 999px;
+      padding: 3px 7px;
+      font-size: 10.5px;
+      font-weight: 800;
+      line-height: 1;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
+      white-space: nowrap;
+    }
+	
+
+
+    .leaflet-tooltip.date-label-tooltip::before {
+      display: none;
+    }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .leaflet-popup-content {
+      margin: 0;
+      width: 330px !important;
+    }
+
+    .popup {
+	  padding: 14px 16px;
+	  max-width: 330px;
+	  position: relative;
+	}
+
+    .popup .course-code {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      color: #667085;
+      background: #f2f4f7;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .popup .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #e8f4ff;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 9px;
+      max-width: 205px;
+    }
+
+    .popup h3 {
+      margin: 0 0 9px;
+      font-size: 18px;
+      line-height: 1.16;
+      color: var(--blue);
+      letter-spacing: -0.01em;
+      padding-right: 68px;
+    }
+
+    .popup .summary {
+	  display: grid;
+	  gap: 5px;
+	  margin: 0 0 8px;
+	}
+
+	.popup .row {
+	  font-size: 13.4px;
+	  line-height: 1.28;
+	  color: #344054;
+	}
+
+    .popup .label {
+      font-weight: 800;
+      color: #1f2937;
+    }
+
+    .popup .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .popup a.btn {
+      display: block;
+      text-align: center;
+      padding: 8px 7px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 800;
+      box-shadow: 0 2px 7px rgba(0,0,0,0.10);
+      white-space: nowrap;
+    }
+
+    .popup a.register {
+      background: var(--green);
+      color: white;
+    }
+
+    .popup a.whatsapp {
+      background: var(--whatsapp);
+      color: white;
+    }
+
+    .popup a.call {
+      background: var(--blue);
+      color: white;
+    }
+
+    .popup a.disabled {
+      background: #e7eaf0;
+      color: #7b8494;
+      pointer-events: none;
+      box-shadow: none;
+    }
+
+    .leaflet-control-zoom {
+      border: none !important;
+      box-shadow: var(--soft-shadow) !important;
+      border-radius: 14px !important;
+      overflow: hidden;
+    }
+
+    .leaflet-control-zoom a {
+      width: 38px !important;
+      height: 38px !important;
+      line-height: 38px !important;
+      border: none !important;
+      color: #15466f !important;
+    }
+
+    .marker-cluster-small,
+    .marker-cluster-medium,
+    .marker-cluster-large {
+      background-color: rgba(29,126,208,0.18);
+    }
+
+    .marker-cluster-small div,
+    .marker-cluster-medium div,
+    .marker-cluster-large div {
+      background: linear-gradient(135deg, #ffd54f, #ff9f43);
+      color: #27364a;
+      font-weight: 800;
+    }
+
+    @media (max-width: 800px) {
+	   .top-panel {
+		left: 10px;
+		right: 10px;
+		bottom: 12px;
+		grid-template-columns: 1fr auto;
+		gap: 8px;
+		background: transparent;
+		padding: 0;
+		box-shadow: none;
+		border-radius: 0;
+	  }
+
+	  .search-card {
+		border-radius: 16px;
+	  }
+
+	  .search-row {
+		padding: 12px 12px;
+	  }
+
+	  #searchInput {
+		font-size: 15px;
+	  }
+
+	 .count-pill {
+		grid-column: 1 / -1;
+		justify-self: start;
+		height: 34px;
+		font-size: 12.5px;
+		padding: 0 11px;
+		background: rgba(255,255,255,0.96);
+		box-shadow: var(--soft-shadow);
+		border-radius: 999px;
+	  }
+
+		 .map-actions {
+		justify-self: start;
+	  }
+
+	  .map-action-btn {
+		width: 46px;
+		height: 46px;
+		padding: 0;
+		border-radius: 50%;
+	  }
+
+      .leaflet-control-zoom {
+        margin-top: 148px !important;
+      }
+
+      .leaflet-popup-content {
+        width: 292px !important;
+      }
+
+      .popup {
+        padding: 14px;
+      }
+
+      .popup h3 {
+        font-size: 17px;
+        padding-right: 62px;
+      }
+
+      .popup .row {
+        font-size: 13px;
+      }
+
+     .popup .buttons {
+	  display: grid;
+	  grid-template-columns: 1fr 1fr 1fr;
+	  gap: 8px;
+	  margin-top: 10px;
+	}
+
+      .popup a.btn {
+	  height: 52px;
+	  padding: 6px 4px;
+	  border-radius: 13px;
+	  font-size: 11px;
+	  font-weight: 800;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  justify-content: center;
+	  gap: 3px;
+	}
+	
+	.popup a.btn .btn-icon {
+	  font-size: 17px;
+	  line-height: 1;
+	}
+	
+	.popup a.btn .btn-text {
+	  font-size: 11px;
+	  line-height: 1;
+	}
+	  
+	  .leaflet-popup-content {
+		  max-height: 300px;
+		  overflow-y: auto;
+		}
+
+  
+    .ashram-marker {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #f59e0b);
+      border: 3px solid white;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.28);
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+    }
+
+    .ashram-popup {
+      padding: 14px 16px;
+      max-width: 310px;
+    }
+
+    .ashram-popup .ashram-badge {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: #fff7ed;
+      color: #9a3412;
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .ashram-popup h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.18;
+      color: #6d28d9;
+      padding-right: 0;
+    }
+
+    .ashram-popup .row {
+      font-size: 13.4px;
+      line-height: 1.28;
+      color: #344054;
+      margin-bottom: 9px;
+    }
+
+    .ashram-popup a.ashram-btn {
+      display: block;
+      text-align: center;
+      padding: 9px 10px;
+      border-radius: 11px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 900;
+      color: white;
+      background: linear-gradient(135deg, #7c3aed, #f59e0b);
+      box-shadow: 0 2px 7px rgba(0,0,0,0.10);
+    }
+
+    .leaflet-tooltip.date-label-tooltip {
+        font-size: 10px;
+        padding: 4px 7px;
+      }
+    }
+  </style>
+  <!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B3FD80G096"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-B3FD80G096");
+</script>
+</head>
+
+<body>
+  <div id="map"></div>
+
+	  <div class="top-panel">
+	  <div class="search-card">
+		<div class="search-row">
+		  <span class="search-icon">🔍</span>
+		  <input id="searchInput" type="text" placeholder="Search city/pin" />
+		  <button id="clearSearchBtn" class="clear-search" onclick="resetFilters()" title="Clear search">×</button>
+		</div>
+	  </div>
+
+	  <div class="map-actions">
+		<div class="map-action">
+		  <button class="map-action-btn" onclick="goToMyLocation()" title="Near Me">
+			<span class="near-me-blue-dot"></span>
+		  </button>
+		  <div class="map-action-label">Near Me</div>
+		</div>
+	  </div>
+
+	  <div id="stats" class="count-pill">Loading courses...</div>
+	</div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+  <script>
+    let allCourses = [];
+    let allAshrams = [];
+    let markerCluster;
+    let map;
+	let searchTrackTimer = null;
+	let lastTrackedSearch = "";
+
+    let userLocationMarker = null;
+    let userAccuracyCircle = null;
+    let hasCenteredOnUser = false;
+
+    const userLocationIcon = L.divIcon({
+      className: "",
+      html: '<div class="user-location-dot"></div>',
+      iconSize: [18, 18],
+      iconAnchor: [9, 9]
+    });
+
+    const courseTypeNames = {
+      "74889": "Happiness Program",
+      "313040": "Happiness Program",
+      "56368": "Rural Happiness Program",
+      "510212": "Happiness Program For Youth",
+      "377155": "Happiness Program For Youth"
+    };
+	
+	function trackEvent(eventName, params = {}) {
+	  if (typeof gtag === "function") {
+		gtag("event", eventName, params);
+	  }
+	}
+
+    function initMap() {
+      map = L.map("map", {
+        maxBounds: [
+          [5.5, 66.0],
+          [37.5, 99.5]
+        ],
+        maxBoundsViscosity: 0.8
+      }).setView([22.9734, 78.6569], 5);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        minZoom: 4,
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap contributors"
+      }).addTo(map);
+
+      markerCluster = L.markerClusterGroup({
+        showCoverageOnHover: false,
+        maxClusterRadius: 45
+      });
+
+      map.addLayer(markerCluster);
+    }
+
+    function startLiveLocation() {
+      if (!navigator.geolocation) {
+        alert("Location is not supported by this browser.");
+        return;
+      }
+
+      navigator.geolocation.watchPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          const accuracy = position.coords.accuracy || 0;
+
+          if (!userLocationMarker) {
+            userLocationMarker = L.marker([lat, lng], {
+              icon: userLocationIcon,
+              zIndexOffset: 1000
+            }).addTo(map);
+
+            userLocationMarker.bindPopup("You are here");
+          } else {
+            userLocationMarker.setLatLng([lat, lng]);
+          }
+
+          if (!userAccuracyCircle) {
+            userAccuracyCircle = L.circle([lat, lng], {
+              radius: accuracy,
+              weight: 1,
+              fillOpacity: 0.08
+            }).addTo(map);
+          } else {
+            userAccuracyCircle.setLatLng([lat, lng]);
+            userAccuracyCircle.setRadius(accuracy);
+          }
+
+          if (!hasCenteredOnUser) {
+            map.setView([lat, lng], 13);
+            hasCenteredOnUser = true;
+          }
+        },
+        error => {
+          console.log("Location permission not granted or unavailable.", error);
+        },
+        {
+          enableHighAccuracy: true,
+          maximumAge: 10000,
+          timeout: 15000
+        }
+      );
+    }
+
+    function goToMyLocation() {
+	  trackEvent("near_me_click");
+
+	  const searchInput = document.getElementById("searchInput");
+	  if (searchInput) {
+		searchInput.value = "";
+	  }
+
+	  renderMarkers();
+
+	  if (userLocationMarker) {
+		map.setView(userLocationMarker.getLatLng(), 14);
+	  } else {
+		startLiveLocation();
+	  }
+	}
+    function clean(value) {
+      if (value === null || value === undefined) return "";
+      return String(value).trim();
+    }
+
+    function escapeHtml(value) {
+      return clean(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function getCourseType(course) {
+      const ctype = clean(course.ctype);
+      return courseTypeNames[ctype] || clean(course.title) || "Course";
+    }
+
+    function normalizePhoneForLink(phone) {
+      const digits = clean(phone).replace(/\D/g, "");
+
+      if (!digits) return "";
+      if (digits.length === 10) return "91" + digits;
+      if (digits.length > 10 && digits.startsWith("91")) return digits;
+
+      return digits;
+    }
+
+    function shortDateLabel(startDate, endDate) {
+      const start = clean(startDate);
+      if (!start) return "";
+
+      const startParts = start.split(" ");
+      if (startParts.length >= 2) {
+        return `${startParts[0]} ${startParts[1]}`;
+      }
+
+      return start;
+    }
+
+    function createWhatsAppMessage(course) {
+	  const title = clean(course.title || getCourseType(course) || "Happiness Program");
+	  const startDate = clean(course.start_date);
+	  const address = clean(course.address);
+
+	  let message = "Hi, I want to know more about this Happiness Program.";
+	  message += "\n\nCourse: " + title;
+
+	  if (startDate) message += "\nDate: " + startDate;
+	  if (address) message += "\nAddress: " + address;
+
+	  return encodeURIComponent(message);
+	}
+
+    function createPopup(course) {
+      const titleRaw = clean(course.title || getCourseType(course));
+		const title = escapeHtml(titleRaw);
+      const courseCode = escapeHtml(course.course_id || course.id || course.sao_id || "");
+
+      const startDate = escapeHtml(course.start_date);
+      const endDate = escapeHtml(course.end_date);
+      const weekday = escapeHtml(course.weekday_timings);
+      const weekend = escapeHtml(course.weekend_timings);
+      const address = escapeHtml(course.address);
+      const city = escapeHtml(course.city);
+      const pincode = escapeHtml(course.pincode);
+      const teachers = escapeHtml(course.teachers);
+      const phone = escapeHtml(course.phone);
+      const fee = escapeHtml(course.course_fee);
+      const currency = escapeHtml(course.currency || "INR");
+
+      const registerUrl = clean(course.register_url);
+      const phoneRaw = clean(course.phone);
+      const phoneLink = normalizePhoneForLink(phoneRaw);
+      const whatsappMessage = createWhatsAppMessage(course);
+
+      const whatsappUrl = phoneLink
+        ? `https://wa.me/${phoneLink}?text=${whatsappMessage}`
+        : `https://wa.me/?text=${whatsappMessage}`;
+
+      return `
+        <div class="popup">
+          ${courseCode ? `<div class="course-code">${courseCode}</div>` : ""}
+          
+          <h3>${title}</h3>
+
+          <div class="summary">
+            ${startDate || endDate ? `<div class="row"><span class="label">Date:</span> ${startDate}${endDate ? " to " + endDate : ""}</div>` : ""}
+            ${weekday ? `<div class="row"><span class="label">Time:</span> ${weekday}</div>` : ""}
+			${weekend && weekend !== weekday ? `<div class="row"><span class="label">Weekend:</span> ${weekend}</div>` : ""}
+            ${address ? `<div class="row"><span class="label">Address:</span> ${address}</div>` : ""}
+            ${city ? `<div class="row"><span class="label">City:</span> ${city} ${pincode ? "- " + pincode : ""}</div>` : ""}
+            ${teachers ? `<div class="row"><span class="label">Teacher:</span> ${teachers}</div>` : ""}
+            ${phone ? `<div class="row"><span class="label">Phone:</span> ${phone}</div>` : ""}
+            ${fee ? `<div class="row"><span class="label">Fee:</span> ${currency} ${fee}</div>` : ""}
+          </div>
+
+          <div class="buttons">
+			  ${registerUrl ? `<a class="btn register" href="${registerUrl}" target="_blank"><span class="btn-icon">📝</span><span class="btn-text">Register</span></a>` : `<a class="btn disabled"><span class="btn-icon">📝</span><span class="btn-text">Register</span></a>`}
+
+			  <a class="btn whatsapp" href="${whatsappUrl}" target="_blank"><span class="btn-icon">💬</span><span class="btn-text">WhatsApp</span></a>
+
+			  ${phoneLink ? `<a class="btn call" href="tel:+${phoneLink}"><span class="btn-icon">📞</span><span class="btn-text">Call</span></a>` : `<a class="btn disabled"><span class="btn-icon">📞</span><span class="btn-text">Call</span></a>`}
+			</div>
+        </div>
+      `;
+    }
+
+
+    const ashramIcon = L.divIcon({
+      className: "",
+      html: '<div class="ashram-marker"></div>',
+      iconSize: [34, 34],
+      iconAnchor: [17, 17],
+      popupAnchor: [0, -18]
+    });
+
+    function createAshramPopup(ashram) {
+      const name = escapeHtml(ashram.name);
+      const city = escapeHtml(ashram.city);
+      const programsUrl = clean(ashram.programs_url);
+
+      return `
+        <div class="ashram-popup">
+          <span class="ashram-badge">ASHRAM</span>
+          <h3>${name}</h3>
+          ${city ? `<div class="row"><strong>City:</strong> ${city}</div>` : ""}
+          ${programsUrl ? `<a class="ashram-btn" href="${programsUrl}" target="_blank" onclick="trackEvent('ashram_programs_click', { ashram_name: '${name}', city: '${city}' })">View Programs</a>` : ""}
+        </div>
+      `;
+    }
+
+    function ashramMatches(ashram, searchTerm) {
+      const combined = [
+        ashram.name,
+        ashram.city,
+        ashram.programs_url
+      ].map(clean).join(" ").toLowerCase();
+
+      return !searchTerm || combined.includes(searchTerm);
+    }
+
+    function renderAshramMarkers(searchTerm, visibleLatLngs) {
+      allAshrams.forEach(ashram => {
+        if (!ashramMatches(ashram, searchTerm)) return;
+
+        const lat = parseFloat(ashram.latitude);
+        const lng = parseFloat(ashram.longitude);
+
+        if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+
+       const marker = L.marker([lat, lng], { icon: ashramIcon });
+
+		marker.bindTooltip(escapeHtml(ashram.name), {
+		  permanent: true,
+		  direction: "bottom",
+		  offset: [0, 14],
+		  className: "ashram-name-tooltip",
+		  opacity: 1,
+		  interactive: true
+		});
+
+		marker.on("click", () => {
+		  trackEvent("ashram_programs_click", {
+			ashram_name: clean(ashram.name),
+			city: clean(ashram.city)
+		  });
+
+		  if (ashram.programs_url) {
+			window.open(ashram.programs_url, "_blank");
+		  }
+		});
+
+        markerCluster.addLayer(marker);
+        visibleLatLngs.push([lat, lng]);
+      });
+    }
+
+    function courseMatches(course, searchTerm) {
+	  const combined = [
+		course.course_id,
+		course.id,
+		course.sao_id,
+		course.title,
+		course.city,
+		course.center_name,
+		course.address,
+		course.address_short,
+		course.street_address_1,
+		course.street_address_2,
+		course.pincode,
+		course.teachers,
+		course.phone,
+		course.language,
+		course.register_url
+	  ].map(clean).join(" ").toLowerCase();
+
+	  return !searchTerm || combined.includes(searchTerm);
+}
+
+    function renderMarkers() {
+      const searchInput = document.getElementById("searchInput");
+      const clearBtn = document.getElementById("clearSearchBtn");
+      const searchTerm = clean(searchInput.value).toLowerCase();
+	if (searchTerm.length >= 3 && searchTerm !== lastTrackedSearch) {
+	  clearTimeout(searchTrackTimer);
+
+	  searchTrackTimer = setTimeout(() => {
+		lastTrackedSearch = searchTerm;
+
+		trackEvent("area_search", {
+		  search_term: searchTerm
+		});
+	  }, 900);
+	}
+      clearBtn.classList.toggle("show", !!searchTerm);
+      markerCluster.clearLayers();
+
+      let shown = 0;
+      let visibleLatLngs = [];
+
+      allCourses.forEach(course => {
+        if (!courseMatches(course, searchTerm)) return;
+
+        const lat = parseFloat(course.final_map_latitude);
+        const lng = parseFloat(course.final_map_longitude);
+
+        if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+          return;
+        }
+
+        const marker = L.marker([lat, lng]);
+        marker.bindPopup(createPopup(course), {
+		  autoPan: true,
+		  keepInView: true,
+		  autoPanPaddingTopLeft: [20, 90],
+		  autoPanPaddingBottomRight: [20, 120],
+		  maxHeight: 360
+		});
+
+		marker.on("popupopen", () => {
+		  trackEvent("course_view", {
+			course_id: clean(course.course_id || course.id || course.sao_id),
+			course_title: clean(course.title),
+			city: clean(course.city),
+			pincode: clean(course.pincode)
+		  });
+		});
+
+        visibleLatLngs.push([lat, lng]);
+
+        const dateText = shortDateLabel(course.start_date, course.end_date);
+        if (dateText) {
+          marker.bindTooltip(escapeHtml(dateText), {
+            permanent: true,
+            direction: "top",
+            offset: [0, -8],
+            className: "date-label-tooltip",
+            opacity: 1
+          });
+        }
+
+        markerCluster.addLayer(marker);
+        shown++;
+      });
+
+      renderAshramMarkers(searchTerm, visibleLatLngs);
+
+      document.getElementById("stats").textContent =
+        `${shown} of ${allCourses.length} courses`;
+
+      if (searchTerm && visibleLatLngs.length > 0) {
+        if (visibleLatLngs.length === 1) {
+          map.setView(visibleLatLngs[0], 13);
+        } else {
+          const bounds = L.latLngBounds(visibleLatLngs);
+          map.fitBounds(bounds, {
+            padding: [60, 60],
+            maxZoom: 13
+          });
+        }
+      }
+    }
+
+    function resetFilters() {
+      document.getElementById("searchInput").value = "";
+      renderMarkers();
+      map.setView([22.9734, 78.6569], 5);
+    }
+
+    async function loadCourses() {
+      try {
+        const response = await fetch("courses_for_map_final.json");
+
+        if (!response.ok) {
+          throw new Error("Could not load courses_for_map_final.json");
+        }
+
+        allCourses = await response.json();
+
+        try {
+          const ashramResponse = await fetch("ashrams.json");
+          if (ashramResponse.ok) {
+            allAshrams = await ashramResponse.json();
+          }
+        } catch (ashramError) {
+          console.log("Ashram data not loaded.", ashramError);
+        }
+
+        renderMarkers();
+
+        document.getElementById("searchInput").addEventListener("input", renderMarkers);
+
+      } catch (error) {
+        document.getElementById("stats").innerHTML =
+          "Error loading courses_for_map_final.json";
+        console.error(error);
+      }
+    }
+
+    initMap();
+    loadCourses();
+  </script>
+</body>
+</html>
