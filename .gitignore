@@ -35,7 +35,7 @@ daily_update_map.bat
 update_map_data.bat
 
 # Public deploy folder generated locally
-website/
+# website/
 
 # Extra local folders / duplicates
 data/
