@@ -48,25 +48,14 @@ jobs:
           cp courses_for_map_final.json website/courses_for_map_final.json
           cp ashrams.json website/ashrams.json
 
-	      - name: Get course count
+      - name: Get course count
         id: course_count
         shell: bash
         run: |
-          COUNT=$(python - <<'PY'
-import json
-from datetime import datetime
-from zoneinfo import ZoneInfo
-
-with open("website/courses_for_map_final.json", "r", encoding="utf-8") as f:
-    data = json.load(f)
-
-now = datetime.now(ZoneInfo("Asia/Kolkata")).strftime("%d %b %Y, %I:%M %p IST")
-
-print(f"count={len(data)}")
-print(f"updated_at={now}")
-PY
-          )
-          echo "$COUNT" >> "$GITHUB_OUTPUT"
+          COUNT=$(python -c "import json; print(len(json.load(open('website/courses_for_map_final.json', encoding='utf-8'))))")
+          UPDATED_AT=$(TZ='Asia/Kolkata' date '+%d %b %Y, %I:%M %p IST')
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "updated_at=$UPDATED_AT" >> "$GITHUB_OUTPUT"
 
       - name: Send update email
         uses: dawidd6/action-send-mail@v3
