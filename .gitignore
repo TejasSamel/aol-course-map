@@ -50,3 +50,9 @@ find_suspicious_locations.py
 geocode_courses_opencage.py
 import_bad_coordinates_to_manual.py
 make_india_pincodes.py
+
+# Allow public website files for Cloudflare Pages
+!website/
+!website/index.html
+!website/courses_for_map_final.json
+!website/ashrams.json
