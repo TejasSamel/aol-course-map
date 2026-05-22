@@ -2,56 +2,7 @@ name: Update AOL Course Map
 
 on:
   schedule:
-    # Daily at 6:00 AM India time = 00:30 UTC
-    - cron: "30 0 * * *"
-  workflow_dispatch:
-
-jobs:
-  update-map:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Fetch latest courses
-        run: python fetch_all_india_hp.py
-
-      - name: Prepare map data
-        run: python prepare_map_ready_courses.py
-
-      - name: Apply manual location fixes
-        run: python merge_manual_locations.py
-
-      - name: Prepare public website folder
-        run: |
-          mkdir -p website
-          cp index.html website/index.html
-          cp courses_for_map_final.json website/courses_for_map_final.json
-          cp ashrams.json website/ashrams.json
-
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli
-
-      - name: Deploy to Netlify
-        run: netlify deploy --prod --dir website --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN"
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}name: Update AOL Course Map
-
-on:
-  schedule:
-    # Every 30 minutes from 6:00 AM to 9:00 PM India time
+    # Every 30 minutes from about 5:30 AM to 9:00 PM India time
     # GitHub cron uses UTC.
     - cron: "0,30 0-15 * * *"
   workflow_dispatch:
@@ -94,7 +45,7 @@ jobs:
         run: npm install -g netlify-cli
 
       - name: Deploy to Netlify
-        run: netlify deploy --prod --dir website --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN"
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: netlify deploy --prod --dir website --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN"
