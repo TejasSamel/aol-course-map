@@ -1,6 +1,6 @@
 name: Update AOL Course Map
 
-on:
+'on':
   workflow_dispatch:
   schedule:
     - cron: "00 10 * * *"
