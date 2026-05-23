@@ -1083,7 +1083,12 @@
 
         renderMarkers();
 
-        document.getElementById("searchInput").addEventListener("input", renderMarkers);
+        let searchDebounceTimer = null;
+
+		document.getElementById("searchInput").addEventListener("input", () => {
+		  clearTimeout(searchDebounceTimer);
+		  searchDebounceTimer = setTimeout(renderMarkers, 350);
+		});
 
       } catch (error) {
         document.getElementById("stats").innerHTML =
