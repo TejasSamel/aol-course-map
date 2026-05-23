@@ -3,8 +3,7 @@ name: Update AOL Course Map
 'on':
   workflow_dispatch:
   schedule:
-    - cron: "00 10 * * *"
-
+    - cron: "15 10 * * *"
 permissions:
   contents: write
 jobs:
