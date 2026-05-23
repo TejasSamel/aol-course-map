@@ -1048,20 +1048,13 @@
 
       document.getElementById("stats").textContent =
         `${shown} of ${allCourses.length} courses`;
-			if (searchTerm && visibleLatLngs.length > 0) {
-			  if (visibleLatLngs.length === 1) {
-				map.setView(visibleLatLngs[0], 15, {
-				  animate: false
-				});
-			  } else {
-				const bounds = L.latLngBounds(visibleLatLngs);
-				map.fitBounds(bounds, {
-				  padding: [60, 60],
-				  maxZoom: 13
-				});
-			  }
-			}
-    }
+		if (searchTerm && visibleLatLngs.length > 1) {
+		  const bounds = L.latLngBounds(visibleLatLngs);
+		  map.fitBounds(bounds, {
+			padding: [60, 60],
+			maxZoom: 13
+		  });
+		}    }
 
     function resetFilters() {
       document.getElementById("searchInput").value = "";
