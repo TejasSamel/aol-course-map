@@ -1,6 +1,6 @@
 ﻿{
-  "name": "Art of Living Course Map",
-  "short_name": "AOL Map",
+  "name": "Course Finder",
+	"short_name": "Course Finder",
   "description": "Find Art of Living Happiness Programs near you across India.",
   "start_url": "/",
   "scope": "/",
