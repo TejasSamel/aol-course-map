@@ -2,12 +2,9 @@ name: Update AOL Course Map
 
 on:
   workflow_dispatch:
+
   schedule:
-    # Every 3 hours from 6 AM to 9 PM India time
-    # Plus one late-night run at 11:59 PM India time
-    # GitHub cron uses UTC.
-    - cron: "30 0,3,6,9,12,15 * * *"
-    - cron: "29 18 * * *"
+    - cron: '*/15 * * * *'
 
 permissions:
   contents: write
