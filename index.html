@@ -51,7 +51,8 @@
 	  grid-template-areas:
 		"actions"
 		"search"
-		"count";
+		"count"
+		"credit";
 	  gap: 8px;
 	  align-items: end;
 	  pointer-events: none;
@@ -101,6 +102,18 @@
       font-size: 17px;
       flex: 0 0 auto;
     }
+	
+	.credit-text {
+	  grid-area: credit;
+	  justify-self: start;
+	  font-size: 8px;
+	  font-weight: 500;
+	  color: rgba(21, 70, 111, 0.45);
+	  background: transparent;
+	  pointer-events: none;
+	  user-select: none;
+	  padding-left: 2px;
+	}
 
     #searchInput {
       width: 100%;
@@ -410,21 +423,6 @@
       box-shadow: none;
     }
 
-    .leaflet-control-zoom {
-      border: none !important;
-      box-shadow: var(--soft-shadow) !important;
-      border-radius: 14px !important;
-      overflow: hidden;
-    }
-
-    .leaflet-control-zoom a {
-      width: 38px !important;
-      height: 38px !important;
-      line-height: 38px !important;
-      border: none !important;
-      color: #15466f !important;
-    }
-
     .marker-cluster-small,
     .marker-cluster-medium,
     .marker-cluster-large {
@@ -440,15 +438,18 @@
     }
 
     @media (max-width: 800px) {
-	   .top-panel {
+	  .top-panel {
 		  left: 10px;
 		  bottom: 12px;
-		  width: calc(100vw - 20px);
+		  width: 48vw;
+		  max-width: 260px;
+		  min-width: 190px;
 		  grid-template-columns: 1fr;
 		  grid-template-areas:
 			"actions"
 			"search"
-			"count";
+			"count"
+			"credit";
 		  gap: 7px;
 		  background: transparent;
 		  padding: 0;
@@ -457,15 +458,16 @@
 		}
 
 	  .search-card {
-		border-radius: 16px;
-	  }
+		  width: 100%;
+		  min-width: 0;
+		}
+
+		.search-card input {
+		  font-size: 14px;
+		}
 
 	  .search-row {
 		padding: 12px 12px;
-	  }
-
-	  #searchInput {
-		font-size: 15px;
 	  }
 
 	 .count-pill {
@@ -491,10 +493,6 @@
 		padding: 0;
 		border-radius: 50%;
 	  }
-
-      .leaflet-control-zoom {
-        margin-top: 148px !important;
-      }
 
       .leaflet-popup-content {
         width: 292px !important;
@@ -550,16 +548,9 @@
 
   
     .ashram-marker {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #8b5cf6, #f59e0b);
-      border: 3px solid white;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.28);
-      display: grid;
-      place-items: center;
-      font-size: 18px;
-    }
+	  width: 34px;
+	  height: 34px;
+	}
 
     .ashram-popup {
       padding: 14px 16px;
@@ -643,6 +634,7 @@
 	  </div>
 
 	  <div id="stats" class="count-pill">Loading courses...</div>
+	  <div class="credit-text">Designed by Tejas Samel for greater good</div>
 	</div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -870,11 +862,11 @@
           </div>
 
           <div class="buttons">
-			  ${registerUrl ? `<a class="btn register" href="${registerUrl}" target="_blank"><span class="btn-icon">📝</span><span class="btn-text">Register</span></a>` : `<a class="btn disabled"><span class="btn-icon">📝</span><span class="btn-text">Register</span></a>`}
-
-			  <a class="btn whatsapp" href="${whatsappUrl}" target="_blank"><span class="btn-icon">💬</span><span class="btn-text">WhatsApp</span></a>
+			  ${registerUrl ? `<a class="btn register" href="${registerUrl}" target="_blank" rel="noopener noreferrer"><span class="btn-icon">📝</span><span class="btn-text">Register</span></a>` : `<a class="btn disabled"><span class="btn-icon">📝</span><span class="btn-text">Register</span></a>`}
 
 			  ${phoneLink ? `<a class="btn call" href="tel:+${phoneLink}"><span class="btn-icon">📞</span><span class="btn-text">Call</span></a>` : `<a class="btn disabled"><span class="btn-icon">📞</span><span class="btn-text">Call</span></a>`}
+
+			  <a class="btn whatsapp" href="${whatsappUrl}" target="_blank" rel="noopener noreferrer"><span class="btn-icon">💬</span><span class="btn-text">WhatsApp</span></a>
 			</div>
         </div>
       `;
@@ -899,7 +891,7 @@
           <span class="ashram-badge">ASHRAM</span>
           <h3>${name}</h3>
           ${city ? `<div class="row"><strong>City:</strong> ${city}</div>` : ""}
-          ${programsUrl ? `<a class="ashram-btn" href="${programsUrl}" target="_blank" onclick="trackEvent('ashram_programs_click', { ashram_name: '${name}', city: '${city}' })">View Programs</a>` : ""}
+          ${programsUrl ? `<a class="ashram-btn" href="${programsUrl}" target="_blank" rel="noopener noreferrer" onclick="trackEvent('ashram_programs_click', { ashram_name: '${name}', city: '${city}' })">View Programs</a>` : ""}
         </div>
       `;
     }
@@ -1005,12 +997,12 @@
 
         const marker = L.marker([lat, lng]);
         marker.bindPopup(createPopup(course), {
-		  autoPan: true,
-		  keepInView: true,
-		  autoPanPaddingTopLeft: [20, 90],
-		  autoPanPaddingBottomRight: [20, 120],
-		  maxHeight: 360
-		});
+			  autoPan: true,
+			  keepInView: false,
+			  autoPanPaddingTopLeft: [20, 90],
+			  autoPanPaddingBottomRight: [20, 120],
+			  maxHeight: 360
+			});
 
 		marker.on("popupopen", () => {
 		  trackEvent("course_view", {
