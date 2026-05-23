@@ -502,9 +502,7 @@
 		border-radius: 50%;
 	  }
 
-      .leaflet-popup-content {
-        width: 292px !important;
-      }
+      
 
       .popup {
         padding: 14px;
@@ -549,10 +547,7 @@
 	  line-height: 1;
 	}
 	  
-	  .leaflet-popup-content {
-		  max-height: 300px;
-		  overflow-y: auto;
-		}
+	 
 
   
     .ashram-marker {
@@ -608,6 +603,19 @@
         font-size: 10px;
         padding: 4px 7px;
       }
+	  
+	  .leaflet-popup {
+		  max-width: calc(100vw - 24px) !important;
+		}
+
+		.leaflet-popup-content-wrapper {
+		  max-width: calc(100vw - 24px) !important;
+		}
+
+		.leaflet-popup-content {
+		  width: calc(100vw - 40px) !important;
+		  max-width: 292px !important;
+		}
     }
   </style>
   <!-- Google Analytics -->
