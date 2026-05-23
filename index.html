@@ -693,10 +693,10 @@
         attribution: "&copy; OpenStreetMap contributors"
       }).addTo(map);
 
-      markerCluster = L.markerClusterGroup({
-        showCoverageOnHover: false,
-        maxClusterRadius: 45
-      });
+     markerCluster = L.markerClusterGroup({
+	  showCoverageOnHover: false,
+	  maxClusterRadius: 45
+	});
 
       map.addLayer(markerCluster);
     }
@@ -1001,10 +1001,8 @@
 
         const marker = L.marker([lat, lng]);
         marker.bindPopup(createPopup(course), {
-			  autoPan: true,
+			  autoPan: false,
 			  keepInView: false,
-			  autoPanPaddingTopLeft: [20, 90],
-			  autoPanPaddingBottomRight: [20, 120],
 			  maxHeight: 360
 			});
 
