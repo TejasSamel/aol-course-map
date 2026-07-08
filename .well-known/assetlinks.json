@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.artoflivingupdates.coursefinder",
+      "sha256_cert_fingerprints": [
+        "DA:F7:0A:71:34:AD:A1:FD:13:FC:75:E8:57:40:5E:E3:71:7A:BC:9E:9D:CC:C8:DE:BD:AA:6F:83:76:F1:36:1A"
+      ]
+    }
+  }
+]
